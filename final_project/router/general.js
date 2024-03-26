@@ -103,14 +103,14 @@ public_users.get('/review/:isbn', function (req, res) {
   return res.status(404).send("Book Not Found");
 });
 
+// const URL = "https://u211110347-5000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/";
 const URL = "http://localhost:5000";
-const labURL = "https://u211110347-5000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/";
 
 // 10. Get all books – Using async callback function
 async_callbacks.get('/', async (req, res) => {
   await axios.get(`${URL}/`)
     .then((result) => {
-      return res.status(result.status).send(result.data);
+      return res.status(result.status).send(JSON.stringify(result.data, null, 4));
     })
     .catch((err) => {
       if (err.response.status == 404) {
@@ -144,9 +144,9 @@ async_callbacks.get('/isbn/:isbn', function (req, res) {
 
 // 12. Search by Author - Async-await
 async_callbacks.get('/author/:author', async (req, res) => {
-  await axios.get(`${URL}/author/${author}`)
+  await axios.get(`${URL}/author/${req.params.author}`)
     .then((result) => {
-      return res.status(result.status).send(result.data);
+      return res.status(result.status).send(JSON.stringify(result.data, null, 4));
     })
     .catch((err) => {
       if (err.response.status == 404) {
@@ -161,7 +161,7 @@ async_callbacks.get('/author/:author', async (req, res) => {
 async_callbacks.get('/title/:title', async (req, res) => {
   await axios.get(`${URL}/title/${req.params.title}`)
     .then((result) => {
-      return res.status(result.status).send(result.data);
+      return res.status(result.status).send(JSON.stringify(result.data, null, 4));
     })
     .catch((err) => {
       if (err.response.status == 404) {
