@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const session = require('express-session')
 const customer_routes = require('./router/auth_users.js').authenticated;
 const genl_routes = require('./router/general.js').general;
+const async_routes = require('./router/general.js').async;
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use("/customer/auth/*", function auth(req, res, next) {
 const PORT = 5000;
 
 app.use("/customer", customer_routes);
+app.use("/async", async_routes);
 app.use("/", genl_routes);
 
 app.listen(PORT,() => console.log("Server is running in http://localhost:" + PORT));
